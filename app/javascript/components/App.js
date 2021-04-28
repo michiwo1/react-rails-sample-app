@@ -4,7 +4,7 @@ import styled from "styled-components";
 import "./App.css";
 import { TodoList } from "./TodoList";
 import { AddTodo } from "./AddTodo";
-import { EditTodo } from "./EditTodo";
+import EditTodo from "./EditTodo";
 
 const Nabvar = styled.nav`
   background: #dbfffe;
