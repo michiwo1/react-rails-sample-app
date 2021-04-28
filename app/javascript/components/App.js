@@ -2,6 +2,9 @@ import React from "react";
 import { Switch, Route, Link } from "react-router-dom";
 import styled from "styled-components";
 import "./App.css";
+import { TodoList } from "./TodoList";
+import { AddTodo } from "./AddTodo";
+import { EditTodo } from "./EditTodo";
 
 const Nabvar = styled.nav`
   background: #dbfffe;
@@ -54,6 +57,13 @@ export const App = () => {
           </NavItem>
         </NavItems>
       </Nabvar>
+      <Wrapper>
+        <Switch>
+          <Route exact path="/todos" component={TodoList}></Route>
+          <Route exact path="/todos/new" component={AddTodo}></Route>
+          <Route path="/todos/:id/edit" component={EditTodo}></Route>
+        </Switch>
+      </Wrapper>
     </>
   );
 };
