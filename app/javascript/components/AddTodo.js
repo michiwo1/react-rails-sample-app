@@ -97,6 +97,7 @@ export const AddTodo = props => {
           value={todo.name}
           name="name"
           onChange={handleInputChange}
+          placeholder="新しいTodoを入力"
         />
         <Button
           onClick={saveTodo}
