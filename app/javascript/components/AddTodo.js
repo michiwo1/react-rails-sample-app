@@ -89,7 +89,7 @@ export const AddTodo = props => {
 
   return (
     <>
-      <h1>新しいTodoを追加</h1>
+      <h1>新しいTodo</h1>
       <InputAndButton>
         <InputName
           type="text"
