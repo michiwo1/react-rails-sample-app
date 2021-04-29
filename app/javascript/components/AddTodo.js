@@ -89,7 +89,7 @@ export const AddTodo = props => {
 
   return (
     <>
-      <h1>New Todo</h1>
+      <h1>新しいTodo</h1>
       <InputAndButton>
         <InputName
           type="text"
