@@ -89,7 +89,7 @@ export const AddTodo = props => {
 
   return (
     <>
-      <h1>New Todo</h1>
+      <h1>新しいTodoを追加</h1>
       <InputAndButton>
         <InputName
           type="text"
@@ -97,6 +97,7 @@ export const AddTodo = props => {
           value={todo.name}
           name="name"
           onChange={handleInputChange}
+          placeholder="新しいTodoを入力"
         />
         <Button
           onClick={saveTodo}

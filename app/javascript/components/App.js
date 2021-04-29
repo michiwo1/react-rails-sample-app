@@ -47,13 +47,15 @@ export const App = () => {
   return (
     <>
       <Nabvar>
-        <Logo>TODO</Logo>
+        <Logo>
+          <Link to="/todos">TODO</Link>
+        </Logo>
         <NavItems>
           <NavItem>
-            <Link to="/todos">Todos</Link>
+            <Link to="/todos">Todosリスト</Link>
           </NavItem>
           <NavItem>
-            <Link to="/todos/new">Add New Todo</Link>
+            <Link to="/todos/new">新しいTodoを追加</Link>
           </NavItem>
         </NavItems>
       </Nabvar>

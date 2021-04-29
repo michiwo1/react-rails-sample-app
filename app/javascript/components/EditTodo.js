@@ -114,7 +114,7 @@ function EditTodo(props) {
   };
 
   const deleteTodo = () => {
-    const sure = window.confirm("Are you sure?");
+    const sure = window.confirm("本当に削除してよろしいでしょうか？");
     if (sure) {
       axios
         .delete(`/api/v1/todos/${currentTodo.id}`)
@@ -130,10 +130,10 @@ function EditTodo(props) {
 
   return (
     <>
-      <h1>Editing Todo</h1>
+      <h1>編集画面</h1>
       <div>
         <div>
-          <label htmlFor="name">Current Name</label>
+          <label htmlFor="name">現在の名前</label>
           <InputName
             type="text"
             id="name"
@@ -142,10 +142,10 @@ function EditTodo(props) {
             onChange={handleInputChange}
           />
           <div>
-            <span>CurrentStatus</span>
+            <span>現在のステータス</span>
             <br />
             <CurrentStatus>
-              {currentTodo.is_completed ? "Completed" : "UnCompleted"}
+              {currentTodo.is_completed ? "完了" : "未完了"}
             </CurrentStatus>
           </div>
         </div>
@@ -155,21 +155,21 @@ function EditTodo(props) {
             className="badge badge-primary mr-2"
             onClick={() => updateIsCompleted(currentTodo)}
           >
-            UnCompleted
+            未完了にする
           </IsCompeletedButton>
         ) : (
           <IsCompeletedButton
             className="badge badge-primary mr-2"
             onClick={() => updateIsCompleted(currentTodo)}
           >
-            Completed
+            完了にする
           </IsCompeletedButton>
         )}
         <EditButton type="submit" onClick={updateTodo}>
-          Update
+          更新
         </EditButton>
         <DeleteButton className="badge badge-danger mr-2" onClick={deleteTodo}>
-          Delete
+          削除
         </DeleteButton>
       </div>
     </>

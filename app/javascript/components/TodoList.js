@@ -30,14 +30,17 @@ const RemoveAllButton = styled.button`
   border-radius: 9999px;
   color: #fff;
   cursor: pointer;
+  float: right;
 `;
 
 const TodoName = styled.span`
   font-size: 27px;
+  /* is_completedがtrueの時に表示させる */
   ${({ is_completed }) =>
     is_completed &&
     `
     opacity: 0.4;
+    text-decoration: line-through;
   `}
 `;
 
@@ -88,7 +91,7 @@ export const TodoList = () => {
   }, []);
 
   const removeAllTodos = () => {
-    const sure = window.confirm("Are you sure?");
+    const sure = window.confirm("本当に削除してよろしいでしょうか？");
     if (sure) {
       axios
         .delete("/api/v1/todos/destroy_all")
@@ -116,16 +119,15 @@ export const TodoList = () => {
 
   return (
     <>
-      <h1>Todo List</h1>
+      <h1>Todoリスト</h1>
       <SearchAndButtton>
         <SearchForm
           type="text"
-          placeholder="Search todo..."
+          placeholder="検索"
           onChange={event => {
             setSearchName(event.target.value);
           }}
         />
-        <RemoveAllButton onClick={removeAllTodos}>Remove All</RemoveAllButton>
       </SearchAndButtton>
 
       <div>
@@ -165,6 +167,7 @@ export const TodoList = () => {
             );
           })}
       </div>
+      <RemoveAllButton onClick={removeAllTodos}>全て削除</RemoveAllButton>
     </>
   );
 };
