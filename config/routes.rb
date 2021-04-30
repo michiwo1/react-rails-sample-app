@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       delete '/todos/destroy_all', to: 'todos#destroy_all'
+      delete '/todos/checked_todos_destroy', to: 'todos#checked_todos_destroy'
       resources :todos, only: %i[index show create update destroy]
     end
   end

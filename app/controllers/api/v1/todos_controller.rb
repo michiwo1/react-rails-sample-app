@@ -43,6 +43,14 @@ class Api::V1::TodosController < ApplicationController
     end
   end
 
+  def checked_todos_destroy
+    if Todo.where(is_completed: true).destroy_all
+      head :no_content
+    else
+      render json: { error: "Failed to destroy" }, status: 422
+    end
+  end
+
   private
 
   def todo_params
