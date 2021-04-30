@@ -33,6 +33,20 @@ const RemoveAllButton = styled.button`
   float: right;
 `;
 
+const RemoveAllCheckedButton = styled.button`
+  width: 23%;
+  height: 40px;
+  background: #ff9900;
+  border: none;
+  font-weight: 500;
+  margin-left: 10px;
+  padding: 5px 10px;
+  border-radius: 9999px;
+  color: #fff;
+  cursor: pointer;
+  float: right;
+`;
+
 const TodoName = styled.span`
   font-size: 27px;
   /* is_completedがtrueの時に表示させる */
@@ -91,7 +105,9 @@ export const TodoList = () => {
   }, []);
 
   const removeAllTodos = () => {
-    const sure = window.confirm("本当に削除してよろしいでしょうか？");
+    const sure = window.confirm(
+      "本当に全てのTodoを削除してよろしいでしょうか？"
+    );
     if (sure) {
       axios
         .delete("/api/v1/todos/destroy_all")
@@ -100,6 +116,29 @@ export const TodoList = () => {
         })
         .catch(e => {
           console.log(e);
+        });
+    }
+  };
+
+  const removeAllCheckedTodos = () => {
+    const sure = window.confirm(
+      "本当に選択したTodoを削除を削除してよろしいでしょうか？"
+    );
+    if (sure) {
+      axios
+        .delete("/api/v1/todos/checked_todos_destroy")
+        .then(resp => {
+          axios
+            .get("/api/v1/todos.json")
+            .then(resp => {
+              setTodos(resp.data);
+            })
+            .catch(e => {
+              console.log(e);
+            });
+        })
+        .catch(e => {
+          console.log();
         });
     }
   };
@@ -168,6 +207,9 @@ export const TodoList = () => {
           })}
       </div>
       <RemoveAllButton onClick={removeAllTodos}>全て削除</RemoveAllButton>
+      <RemoveAllCheckedButton onClick={removeAllCheckedTodos}>
+        選択したTodoを削除
+      </RemoveAllCheckedButton>
     </>
   );
 };
