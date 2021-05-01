@@ -72,7 +72,7 @@ export const CompletedTodo = () => {
 
   return (
     <>
-      <h1>完了画面</h1>
+      <h1>完了済みのTodo</h1>
       {todos.map((val, key) => {
         return (
           <Row key={key}>
