@@ -39,6 +39,20 @@ const UncheckedBox = styled.div`
   cursor: pointer;
 `;
 
+const RemoveAllButton = styled.button`
+  width: 16%;
+  height: 40px;
+  background: #f05f68;
+  border: none;
+  font-weight: 500;
+  margin-left: 10px;
+  padding: 5px 10px;
+  border-radius: 9999px;
+  color: #fff;
+  cursor: pointer;
+  float: right;
+`;
+
 export const CompletedTodo = () => {
   const [todos, setTodos] = useState([]);
 
@@ -70,6 +84,22 @@ export const CompletedTodo = () => {
     });
   };
 
+  const removeAllTodos = () => {
+    const sure = window.confirm(
+      "本当に全てのTodoを削除してよろしいでしょうか？"
+    );
+    if (sure) {
+      axios
+        .delete("/api/v1/todos/destroy_all")
+        .then(resp => {
+          setTodos([]);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }
+  };
+
   return (
     <>
       <h1>完了済みのTodo</h1>
@@ -98,6 +128,7 @@ export const CompletedTodo = () => {
           </Row>
         );
       })}
+      <RemoveAllButton onClick={removeAllTodos}>全て削除</RemoveAllButton>
     </>
   );
 };

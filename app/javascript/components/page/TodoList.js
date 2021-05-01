@@ -19,20 +19,6 @@ const SearchForm = styled.input`
   padding: 10px;
 `;
 
-const RemoveAllButton = styled.button`
-  width: 16%;
-  height: 40px;
-  background: #f05f68;
-  border: none;
-  font-weight: 500;
-  margin-left: 10px;
-  padding: 5px 10px;
-  border-radius: 9999px;
-  color: #fff;
-  cursor: pointer;
-  float: right;
-`;
-
 const RemoveAllCheckedButton = styled.button`
   width: 18%;
   height: 40px;
@@ -121,22 +107,6 @@ export const TodoList = () => {
         console.log(e);
       });
   }, []);
-
-  const removeAllTodos = () => {
-    const sure = window.confirm(
-      "本当に全てのTodoを削除してよろしいでしょうか？"
-    );
-    if (sure) {
-      axios
-        .delete("/api/v1/todos/destroy_all")
-        .then(resp => {
-          setTodos([]);
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    }
-  };
 
   const removeAllCheckedTodos = () => {
     const sure = window.confirm(
@@ -227,7 +197,6 @@ export const TodoList = () => {
             );
           })}
       </div>
-      <RemoveAllButton onClick={removeAllTodos}>全て削除</RemoveAllButton>
       <RemoveAllCheckedButton onClick={removeAllCheckedTodos}>
         Todoを削除
       </RemoveAllCheckedButton>
