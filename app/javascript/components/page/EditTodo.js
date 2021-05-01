@@ -63,7 +63,7 @@ function EditTodo(props) {
   const [currentTodo, setCurrentTodo] = useState(initialTodoState);
 
   const notify = () => {
-    toast.success("Todo successfully updated!", {
+    toast.success("Todoを変更しました！", {
       position: "bottom-center",
       hideProgressBar: true
     });
