@@ -19,20 +19,6 @@ const SearchForm = styled.input`
   padding: 10px;
 `;
 
-const RemoveAllCheckedButton = styled.button`
-  width: 18%;
-  height: 40px;
-  background: #ff9900;
-  border: none;
-  font-weight: 500;
-  margin-left: 10px;
-  padding: 5px 10px;
-  border-radius: 9999px;
-  color: #fff;
-  cursor: pointer;
-  float: right;
-`;
-
 const RemoveCompletedTodo = styled.button`
   width: 18%;
   height: 40px;
@@ -108,29 +94,6 @@ export const TodoList = () => {
       });
   }, []);
 
-  const removeAllCheckedTodos = () => {
-    const sure = window.confirm(
-      "本当に選択したTodoを削除を削除してよろしいでしょうか？"
-    );
-    if (sure) {
-      axios
-        .delete("/api/v1/todos/checked_todos_destroy")
-        .then(resp => {
-          axios
-            .get("/api/v1/todos.json")
-            .then(resp => {
-              setTodos(resp.data);
-            })
-            .catch(e => {
-              console.log(e);
-            });
-        })
-        .catch(e => {
-          console.log();
-        });
-    }
-  };
-
   const removeCompletedTodos = () => {
     history.push("/todos/completed");
   };
@@ -197,9 +160,6 @@ export const TodoList = () => {
             );
           })}
       </div>
-      <RemoveAllCheckedButton onClick={removeAllCheckedTodos}>
-        Todoを削除
-      </RemoveAllCheckedButton>
       <RemoveCompletedTodo onClick={removeCompletedTodos}>
         完了済みに移動
       </RemoveCompletedTodo>
