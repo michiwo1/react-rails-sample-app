@@ -18,7 +18,7 @@ const Logo = styled.div`
 
 const NavItems = styled.ul`
   display: flex;
-  width: 400px;
+  width: 600px;
   max-width: 40%;
   justify-content: space-around;
   list-style: none;
@@ -45,6 +45,9 @@ export const Nabver = () => {
         </NavItem>
         <NavItem>
           <Link to="/todos/new">新しいTodoを追加</Link>
+        </NavItem>
+        <NavItem>
+          <Link to="/todos/completed">完了済みのtodo</Link>
         </NavItem>
       </NavItems>
     </Nabvar>
