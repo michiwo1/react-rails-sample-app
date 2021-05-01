@@ -31,6 +31,12 @@ const RemoveCompletedTodo = styled.button`
   color: #fff;
   cursor: pointer;
   float: right;
+  ${({ disabled }) =>
+    disabled &&
+    `
+    opacity: 0.5;
+    cursor: default;
+  `}
 `;
 
 const TodoName = styled.span`
@@ -160,7 +166,10 @@ export const TodoList = () => {
             );
           })}
       </div>
-      <RemoveCompletedTodo onClick={removeCompletedTodos}>
+      <RemoveCompletedTodo
+        onClick={removeCompletedTodos}
+        disabled={!todos.length}
+      >
         完了済みに移動
       </RemoveCompletedTodo>
     </>

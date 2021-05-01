@@ -51,6 +51,12 @@ const RemoveAllButton = styled.button`
   color: #fff;
   cursor: pointer;
   float: right;
+  ${({ disabled }) =>
+    disabled &&
+    `
+    opacity: 0.5;
+    cursor: default;
+  `}
 `;
 
 const RemoveAllCheckedButton = styled.button`
@@ -65,6 +71,12 @@ const RemoveAllCheckedButton = styled.button`
   color: #fff;
   cursor: pointer;
   float: right;
+  ${({ disabled }) =>
+    disabled &&
+    `
+    opacity: 0.5;
+    cursor: default;
+  `}
 `;
 
 export const CompletedTodo = () => {
@@ -165,8 +177,13 @@ export const CompletedTodo = () => {
           </Row>
         );
       })}
-      <RemoveAllButton onClick={removeAllTodos}>全て削除</RemoveAllButton>
-      <RemoveAllCheckedButton onClick={removeAllCheckedTodos}>
+      <RemoveAllButton onClick={removeAllTodos} disabled={!todos.length}>
+        全て削除
+      </RemoveAllButton>
+      <RemoveAllCheckedButton
+        onClick={removeAllCheckedTodos}
+        disabled={!todos.length}
+      >
         Todoを削除
       </RemoveAllCheckedButton>
     </>
