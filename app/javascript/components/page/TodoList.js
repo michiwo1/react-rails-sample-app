@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import { ImCheckboxChecked, ImCheckboxUnchecked } from "react-icons/im";
@@ -19,10 +19,10 @@ const SearchForm = styled.input`
   padding: 10px;
 `;
 
-const RemoveAllButton = styled.button`
-  width: 16%;
+const RemoveCompletedTodo = styled.button`
+  width: 18%;
   height: 40px;
-  background: #f05f68;
+  background: #00aa00;
   border: none;
   font-weight: 500;
   margin-left: 10px;
@@ -31,20 +31,12 @@ const RemoveAllButton = styled.button`
   color: #fff;
   cursor: pointer;
   float: right;
-`;
-
-const RemoveAllCheckedButton = styled.button`
-  width: 23%;
-  height: 40px;
-  background: #ff9900;
-  border: none;
-  font-weight: 500;
-  margin-left: 10px;
-  padding: 5px 10px;
-  border-radius: 9999px;
-  color: #fff;
-  cursor: pointer;
-  float: right;
+  ${({ disabled }) =>
+    disabled &&
+    `
+    opacity: 0.5;
+    cursor: default;
+  `}
 `;
 
 const TodoName = styled.span`
@@ -91,56 +83,25 @@ const EditButton = styled.span`
 export const TodoList = () => {
   const [todos, setTodos] = useState([]);
   const [searchName, setSearchName] = useState("");
+  const history = useHistory();
 
   useEffect(() => {
     axios
       .get("/api/v1/todos.json")
       .then(resp => {
         console.log(resp.data);
-        setTodos(resp.data);
+        const imCompletedTodos = resp.data.filter(
+          data => data.is_completed === false
+        );
+        setTodos(imCompletedTodos);
       })
       .catch(e => {
         console.log(e);
       });
   }, []);
 
-  const removeAllTodos = () => {
-    const sure = window.confirm(
-      "本当に全てのTodoを削除してよろしいでしょうか？"
-    );
-    if (sure) {
-      axios
-        .delete("/api/v1/todos/destroy_all")
-        .then(resp => {
-          setTodos([]);
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    }
-  };
-
-  const removeAllCheckedTodos = () => {
-    const sure = window.confirm(
-      "本当に選択したTodoを削除を削除してよろしいでしょうか？"
-    );
-    if (sure) {
-      axios
-        .delete("/api/v1/todos/checked_todos_destroy")
-        .then(resp => {
-          axios
-            .get("/api/v1/todos.json")
-            .then(resp => {
-              setTodos(resp.data);
-            })
-            .catch(e => {
-              console.log(e);
-            });
-        })
-        .catch(e => {
-          console.log();
-        });
-    }
+  const removeCompletedTodos = () => {
+    history.push("/todos/completed");
   };
 
   const updateIsCompleted = (index, val) => {
@@ -168,7 +129,6 @@ export const TodoList = () => {
           }}
         />
       </SearchAndButtton>
-
       <div>
         {todos
           .filter(val => {
@@ -206,10 +166,12 @@ export const TodoList = () => {
             );
           })}
       </div>
-      <RemoveAllButton onClick={removeAllTodos}>全て削除</RemoveAllButton>
-      <RemoveAllCheckedButton onClick={removeAllCheckedTodos}>
-        選択したTodoを削除
-      </RemoveAllCheckedButton>
+      <RemoveCompletedTodo
+        onClick={removeCompletedTodos}
+        disabled={!todos.length}
+      >
+        完了済みに移動
+      </RemoveCompletedTodo>
     </>
   );
 };

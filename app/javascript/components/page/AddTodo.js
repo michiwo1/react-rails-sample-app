@@ -60,7 +60,7 @@ export const AddTodo = props => {
   };
 
   const notify = () => {
-    toast.success("Todo successfully created!", {
+    toast.success("Todoを作成しました！", {
       position: "bottom-center",
       hideProgressBar: true
     });
